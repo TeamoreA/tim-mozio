@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
-from mozio.provider import views
+from mozio.provider.views import ProviderViewSet
+from mozio.polygon.views import PolygonViewSet
 
 router = routers.DefaultRouter()
-router.register(r'providers', views.ProviderViewSet)
+router.register(r'providers', ProviderViewSet)
+router.register(r'polygons', PolygonViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
