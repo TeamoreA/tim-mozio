@@ -37,8 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # local apps
     'mozio.provider',
+    'mozio.polygon',
     # installed apps
     'rest_framework',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +82,7 @@ TEMPLATE_DEBUG = DEBUG
 SECRET_KEY = env.str("SECRET_KEY", "#gy%@@^ySGT@^")
 
 DATABASES = {"default": env.db()}
+DATABASES['default']['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 
 
 # Password validation
