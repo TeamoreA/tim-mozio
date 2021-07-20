@@ -44,11 +44,8 @@ class PolygonSerializer(serializers.ModelSerializer):
         Validate that the suplied provider id is valid and the user exists
 
         validate that entered polygon points are valid
-
-        i.e Forms a valid polygon with more than three points
-        Entered values are digits
         """
-        provider_id = self.initial_data['provider']
+        provider_id = self.initial_data.get('provider')
         try:
             provider = Provider.objects.get(id=provider_id)
             data['provider'] = provider
@@ -56,22 +53,11 @@ class PolygonSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                     {'provider': 'Please enter a valid provider'})
 
-        poly_points = self.initial_data['poly']
-        for poly_point in poly_points:
-            if len(poly_points) < 3:
-                raise serializers.ValidationError(
-                    {'poly': 'Please enter more than three pair of points'})
-            elif len(poly_point.split()) != 2:
-                raise serializers.ValidationError(
-                    {'poly': 'Please a pair of valid points for latitude and longitude'})
-            for val in poly_point.split():
-                try:
-                    float(val)
-                except ValueError:
-                    raise serializers.ValidationError(
-                        {'poly': 'Ensure the points are numbers'})
-        poly_data = ", ".join(poly_points)
-        poly_object_data = f'POLYGON (({poly_data}))'
+        poly_points = self.initial_data.get('poly', '')
+        poly_data = str(poly_points).replace('.', '').replace('-', '').replace(' ', '').replace(',', '')
+        if not poly_data.isdecimal():
+            raise serializers.ValidationError({'poly': 'Ensure the points are numbers'})
+        poly_object_data = f'POLYGON (({poly_points}))'
 
         try:
             data['poly'] = GEOSGeometry(poly_object_data)
