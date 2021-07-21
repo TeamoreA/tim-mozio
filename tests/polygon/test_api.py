@@ -1,9 +1,7 @@
 import json
+
 import pytest
-
 from model_bakery import baker
-from tests.conftest import api_client
-
 from mozio.polygon.models import Polygon
 from mozio.provider.models import Provider
 
