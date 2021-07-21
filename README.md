@@ -3,7 +3,7 @@
 This is an online ride app.
 
 
-The Application has been documented using Postman Documentation tht can be viewed [here.](https://documenter.getpostman.com/view/10009827/TzsWuAVg)
+The Application has been documented using Postman Documentation that can be viewed [here.](https://documenter.getpostman.com/view/10009827/TzsWuAVg)
 
 ## Setting Up the Application Locally
 
@@ -33,7 +33,7 @@ The Application has been documented using Postman Documentation tht can be viewe
     SECRET_KEY="611=df5*i4evgbpu3)$th%=##=kw#h#@8zomsn1$eo6f^uv74$" # sample SECRET_KEY
     ```
 
-- Add the above variables in a file name `.env` in the root of the project
+- Add the above variables in a file name `.env` in the same directory as `settings.py` file
 
 ### Perform Initial Migrations
 
