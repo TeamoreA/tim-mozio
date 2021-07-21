@@ -39,7 +39,7 @@ class PolygonSerializer(serializers.ModelSerializer):
     def get_provider_name(self, obj):
         return obj.provider.name
 
-    def validate(self, data):
+    def create(self, data):
         """
         Validate that the suplied provider id is valid and the user exists
 
@@ -52,7 +52,6 @@ class PolygonSerializer(serializers.ModelSerializer):
         except Provider.DoesNotExist:
             raise serializers.ValidationError(
                     {'provider': 'Please enter a valid provider'})
-
         poly_points = self.initial_data.get('poly', '')
         poly_data = str(poly_points).replace(
             '.', '').replace(
@@ -69,4 +68,4 @@ class PolygonSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 {'poly': 'Points of LinearRing do not form a closed linestring.'})
 
-        return data
+        return super(PolygonSerializer, self).create(data)
