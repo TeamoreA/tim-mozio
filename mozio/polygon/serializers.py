@@ -1,9 +1,9 @@
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.geos.error import GEOSException
+from mozio.provider.models import Provider
 from rest_framework import serializers
 
 from .models import Polygon
-from mozio.provider.models import Provider
 
 
 class PointsSerializer(serializers.Serializer):
@@ -54,7 +54,11 @@ class PolygonSerializer(serializers.ModelSerializer):
                     {'provider': 'Please enter a valid provider'})
 
         poly_points = self.initial_data.get('poly', '')
-        poly_data = str(poly_points).replace('.', '').replace('-', '').replace(' ', '').replace(',', '')
+        poly_data = str(poly_points).replace(
+            '.', '').replace(
+            '-', '').replace(
+            ' ', '').replace(
+            ',', '')
         if not poly_data.isdecimal():
             raise serializers.ValidationError({'poly': 'Ensure the points are numbers'})
         poly_object_data = f'POLYGON (({poly_points}))'

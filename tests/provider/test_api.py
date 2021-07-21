@@ -1,9 +1,7 @@
 import json
+
 import pytest
-
 from model_bakery import baker
-from tests.conftest import api_client
-
 from mozio.provider.models import Provider
 
 pytestmark = pytest.mark.django_db
